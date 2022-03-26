@@ -1,0 +1,4 @@
+myconfig:
+  logger:
+    name: 'Igor'
+
