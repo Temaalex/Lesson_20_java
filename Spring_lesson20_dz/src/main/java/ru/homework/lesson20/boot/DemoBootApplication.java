@@ -18,9 +18,9 @@ public class DemoBootApplication {
 
 	public static void main(String[] args) {
 
-		//Add() Buy()Change()Delete()Look() Sale()
+		//Add() Buy1() Buy2() Change() Delete() Look() Sale()
 		final ConfigurableApplicationContext ctx1 = SpringApplication.run(DemoBootApplication.class, args);
-		ctx1.getBean(AviaService.class).Sale();
+		ctx1.getBean(AviaService.class).Buy1();
 	}
 
 

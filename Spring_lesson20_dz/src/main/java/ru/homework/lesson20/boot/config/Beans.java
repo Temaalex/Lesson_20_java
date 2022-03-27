@@ -3,7 +3,7 @@ package ru.homework.lesson20.boot.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.homework.lesson20.boot.func.*;
-import ru.homework.lesson20.boot.service.Logger;
+import ru.homework.lesson20.boot.interfaces.Logger;
 
 @Configuration
 public class Beans {
