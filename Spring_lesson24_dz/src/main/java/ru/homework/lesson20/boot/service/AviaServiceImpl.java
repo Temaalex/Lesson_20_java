@@ -32,20 +32,13 @@ public class AviaServiceImpl implements AviaService {
         AviaEntities aviaEntities = new AviaEntities(null, title, salary, age, description, place);
         aviaRepository.save(aviaEntities);
     }
+
     @Loggable
     @Override
     public void delete (long id) {
         aviaRepository.deleteById(id);
     }
 
-
-    @Loggable
-    @Override
-    public void changeBD(long id, String title, int salary, String age, String description, int place){
-        aviaRepository.deleteById(id);
-        AviaEntities aviaEntities = new AviaEntities(null, title, salary, age, description, place);
-        aviaRepository.save(aviaEntities);
-    }
     @Loggable
     @Override
     public void seeOne(String title){
@@ -53,20 +46,20 @@ public class AviaServiceImpl implements AviaService {
         System.out.println(aviaRepository.findByTitle(title));
     }
 
-
+    @Loggable
+    @Override
+    public void changeBD(long id, String title, int salary, String age, String description, int place) {
+        aviaRepository.getById(id);
+        AviaEntities aviaEntities = new AviaEntities(id, title, salary, age, description, place);
+        aviaRepository.save(aviaEntities);
+    }
 
     @Loggable
     @Override
-    public void bayTitle(String title, boolean place){
-        if(place) {
-            System.out.println("Вы купили билет: ");
-            System.out.println(aviaRepository.findByTitle(title));
-        } else
-            System.out.println("Неудача!");
-        }
+    public void testBay(long id, int place){
+        aviaRepository.updatePlace(id, place);
     }
 
 
 
-
-
+}

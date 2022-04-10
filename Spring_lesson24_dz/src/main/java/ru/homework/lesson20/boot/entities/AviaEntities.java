@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,12 +14,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "avia")
 public class AviaEntities {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @Column(name = "title")
-    private String title;
+    private  String title;
     @Column(name = "salary")
     private int salary;
     @Column(name = "age")
