@@ -6,19 +6,29 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.homework.lesson20.boot.entities.AviaEntities;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
-@Repository
+ @Repository
 public interface AviaRepository extends JpaRepository<AviaEntities, Long> {
 
-    List<AviaEntities> deleteById (long id);
-    List<AviaEntities> findByTitle(String a);
-    
-    List<AviaEntities> getById(long id);
+     List<AviaEntities> deleteById(long id);
 
-    @Modifying
-    @Query("update AviaEntities u set u.id = :id where u.place = :place")
-    void updatePlace(@Param(value = "id") long id, @Param(value = "place") int place);
+     List<AviaEntities> findByTitle(String a);
 
-}
+     List<AviaEntities> getById(long id);
 
+     @Transactional
+     @Modifying
+     @Query(name = "update.avia")
+     Integer getAviaWhichToBay(String pattern, long patternId);
+
+     @Transactional
+     @Modifying
+     @Query(name = "bay.avia")
+     Integer bayOneTicket(String patternTitle);
+     @Transactional
+     @Modifying
+     @Query(name = "sale.avia")
+     Integer saleOneTicket(String patternTitle);
+ }

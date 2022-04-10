@@ -4,13 +4,18 @@ package ru.homework.lesson20.boot.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@NamedQueries({
+    @NamedQuery(name = "update.avia", query = "UPDATE AviaEntities avia SET avia.title = :pattern where avia.id = :patternId"),
+    @NamedQuery(name = "bay.avia", query = "UPDATE AviaEntities avia SET avia.place = (avia.place-1) where avia.title = :patternTitle"),
+    @NamedQuery(name = "sale.avia", query = "UPDATE AviaEntities avia SET avia.place = (avia.place+1) where avia.title = :patternTitle"),
+})
 @Entity
 @Table(name = "avia")
 public class AviaEntities {

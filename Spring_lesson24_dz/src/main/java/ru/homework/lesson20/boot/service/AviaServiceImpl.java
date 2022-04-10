@@ -3,10 +3,12 @@ package ru.homework.lesson20.boot.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import ru.homework.lesson20.boot.annotations.Loggable;
 import ru.homework.lesson20.boot.entities.AviaEntities;
 import ru.homework.lesson20.boot.repository.interfaces.AviaRepository;
 import ru.homework.lesson20.boot.service.interfaces.AviaService;
+
 
 
 @Service
@@ -53,13 +55,20 @@ public class AviaServiceImpl implements AviaService {
         AviaEntities aviaEntities = new AviaEntities(id, title, salary, age, description, place);
         aviaRepository.save(aviaEntities);
     }
+    @Loggable
+    @Override
+    public void changeTitle(String title, long id){
+        aviaRepository.getAviaWhichToBay(title, id);
+    }
 
     @Loggable
     @Override
-    public void testBay(long id, int place){
-        aviaRepository.updatePlace(id, place);
+    public void bayTicket(String title){
+        aviaRepository.bayOneTicket(title);
     }
-
-
-
+    @Loggable
+    @Override
+    public void saleTicket(String title){
+        aviaRepository.saleOneTicket(title);
+    }
 }

@@ -19,12 +19,16 @@ public class DemoBootApplication {
 		final ConfigurableApplicationContext ctx1 = SpringApplication.run(DemoBootApplication.class, args);
 		final AviaService aviaService =ctx1.getBean(AviaServiceImpl.class);
 
-		//aviaService.printAll();
+
 		//aviaService.saveNew("Ад Данте", 2000, "+18", "Новое описание", 1050);
 		//aviaService.delete(15);
 		//aviaService.changeBD(15, "Супер Новый концерт", 1000, "18", "Новое описание", 1500 );
 		//aviaService.seeOne("Лебидиное озеро");
-		aviaService.testBay(15, 1501);
+		//aviaService.changeTitle("Super puper Новый концерт", 16);
+		//aviaService.printAll();
+
+		//aviaService.bayTicket("Super puper Новый концерт");
+		//aviaService.saleTicket("Super puper Новый концерт");
 
 
 	}
