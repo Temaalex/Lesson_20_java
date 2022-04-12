@@ -3,6 +3,8 @@ package ru.homework.lesson20.boot.service.interfaces;
 
 import ru.homework.lesson20.boot.annotations.Loggable;
 
+import java.io.IOException;
+
 public interface AviaService {
 
     void printAll();
@@ -19,7 +21,7 @@ public interface AviaService {
 
 
     @Loggable
-    void bayTicket(String title);
+    void bayTicket(String title) throws IOException;
 
     @Loggable
     void saleTicket(String title);

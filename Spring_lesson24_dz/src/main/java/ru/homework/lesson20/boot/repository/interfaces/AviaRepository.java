@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import ru.homework.lesson20.boot.entities.AviaEntities;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.NamedQuery;
 import java.util.List;
 
  @Repository
@@ -17,6 +19,12 @@ public interface AviaRepository extends JpaRepository<AviaEntities, Long> {
      List<AviaEntities> findByTitle(String a);
 
      List<AviaEntities> getById(long id);
+
+
+
+     @Transactional
+     @Query("from AviaEntities avia where avia.title = :pattern")
+     List<AviaEntities> getByTitle(String pattern);
 
      @Transactional
      @Modifying
@@ -31,4 +39,7 @@ public interface AviaRepository extends JpaRepository<AviaEntities, Long> {
      @Modifying
      @Query(name = "sale.avia")
      Integer saleOneTicket(String patternTitle);
+
+
+
  }

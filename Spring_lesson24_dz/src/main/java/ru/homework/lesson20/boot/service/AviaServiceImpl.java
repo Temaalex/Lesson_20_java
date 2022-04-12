@@ -1,16 +1,24 @@
 package ru.homework.lesson20.boot.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.homework.lesson20.boot.annotations.Loggable;
 import ru.homework.lesson20.boot.entities.AviaEntities;
 import ru.homework.lesson20.boot.repository.interfaces.AviaRepository;
 import ru.homework.lesson20.boot.service.interfaces.AviaService;
 
+import java.io.EOFException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
 
-
+@Slf4j
 @Service
 public class AviaServiceImpl implements AviaService {
     private AviaRepository aviaRepository;
@@ -19,6 +27,7 @@ public class AviaServiceImpl implements AviaService {
     public AviaServiceImpl(AviaRepository aviaRepository) {
         this.aviaRepository = aviaRepository;
     }
+
     @Loggable
     @Override
     public void printAll() {
@@ -61,11 +70,34 @@ public class AviaServiceImpl implements AviaService {
         aviaRepository.getAviaWhichToBay(title, id);
     }
 
-    @Loggable
+//start Transactional
     @Override
-    public void bayTicket(String title){
-        aviaRepository.bayOneTicket(title);
+    @Transactional(
+            propagation = Propagation.REQUIRED,   //+
+            isolation = Isolation.READ_COMMITTED, //+
+            timeout = 5,
+            rollbackFor = { //правило отката
+                    EOFException.class,
+            },
+            noRollbackFor = {
+                    FileNotFoundException.class,
+                    NullPointerException.class
+            }
+    )
+//finish Transactional
+    public void bayTicket(String title) throws IOException {
+        List<AviaEntities> title1 = aviaRepository.getByTitle(title);
+        if (title1.isEmpty()) {
+            aviaRepository.bayOneTicket(title);
+            throw new EOFException("Ошибка транзакции, повторите попытку или обратитесь с службу поддержки +9(999)99-999");
+        } else {
+            log.info("Начало транзакции");
+            aviaRepository.bayOneTicket(title);
+            log.info("Конец транзакции");
+        }
+
     }
+
     @Loggable
     @Override
     public void saleTicket(String title){

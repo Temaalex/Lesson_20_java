@@ -9,6 +9,7 @@ import ru.homework.lesson20.boot.service.AviaServiceImpl;
 import ru.homework.lesson20.boot.service.interfaces.AviaService;
 
 import javax.persistence.EntityManagerFactory;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -27,7 +28,18 @@ public class DemoBootApplication {
 		//aviaService.changeTitle("Super puper Новый концерт", 16);
 		//aviaService.printAll();
 
-		//aviaService.bayTicket("Super puper Новый концерт");
+				// Транзакция с ошибкой
+//		try {
+//			aviaService.bayTicket("iugfvdshjvbkjvfghdsg");
+//		} catch (IOException e) {
+//			System.out.println("Error "+e);
+//		}
+				// Успешная транзакция
+		try {
+			aviaService.bayTicket("Super puper Новый концерт");
+		} catch (IOException e) {
+			System.out.println("Error "+e);
+		}
 		//aviaService.saleTicket("Super puper Новый концерт");
 
 

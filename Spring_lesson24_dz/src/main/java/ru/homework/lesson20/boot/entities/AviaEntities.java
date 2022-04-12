@@ -4,6 +4,7 @@ package ru.homework.lesson20.boot.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
