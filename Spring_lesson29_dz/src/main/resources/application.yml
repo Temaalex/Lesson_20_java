@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: 'org.postgresql.Driver'
+    url: 'jdbc:postgresql://localhost:5433/avia'
+    username: 'postgres'
+    password: '123'
+
+jpa:
+  show-sql: true
