@@ -2,8 +2,6 @@ package ru.homework.lesson20.boot.service.interfaces;
 
 
 import ru.homework.lesson20.boot.domain.Avia;
-import ru.homework.lesson20.boot.dto.AviaDto;
-import ru.homework.lesson20.boot.entities.AviaEntities;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -17,9 +15,9 @@ public interface AviaService {
     Avia updateAvia(Avia avia);
 
 
-    void bayTicket(String title) throws IOException;
-    void saleTicket(String title) throws IOException;
-
+    void bayTicket(String title);
+    void saleTicket(String title);
+    void changeTitle(String title, long id);
 
 
 

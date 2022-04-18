@@ -5,20 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.*;
 import ru.homework.lesson20.boot.domain.Avia;
 import ru.homework.lesson20.boot.entities.AviaEntities;
 import ru.homework.lesson20.boot.repository.interfaces.AviaRepository;
 import ru.homework.lesson20.boot.service.interfaces.AviaService;
 import ru.homework.lesson20.boot.service.interfaces.Mapper;
-import org.springframework.transaction.annotation.*;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
 import java.io.EOFException;
 import java.io.FileNotFoundException;
+import java.util.Collection;
+import java.util.stream.Collectors;
 import java.io.IOException;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -42,13 +40,11 @@ public class AviaServiceImpl implements AviaService {
     @Override
     public Avia updateAvia(Avia avia) {return mapper.toDomain(aviaRepository.save(mapper.toEntity(avia)));}
 
-//start Transactional
-    @Override
     @Transactional(
-            propagation = Propagation.REQUIRED,   //+
-            isolation = Isolation.READ_COMMITTED, //+
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.READ_COMMITTED,
             timeout = 5,
-            rollbackFor = { //правило отката
+            rollbackFor = {
                     EOFException.class,
             },
             noRollbackFor = {
@@ -56,25 +52,16 @@ public class AviaServiceImpl implements AviaService {
                     NullPointerException.class
             }
     )
-//finish Transactional
-    public void bayTicket(String title) throws IOException {
-        List<AviaEntities> title1 = aviaRepository.getByTitle(title);
-        if (title1.isEmpty()) {
-            aviaRepository.bayOneTicket(title);
-            throw new EOFException("Ошибка транзакции, повторите попытку или обратитесь с службу поддержки +9(999)99-999");
-        } else {
-            log.info("Начало транзакции");
-            aviaRepository.bayOneTicket(title);
-            System.out.println(aviaRepository.getByTitle(title));
-            log.info("Конец транзакции");
-        }
+    @Override
+    public void bayTicket(String title){
+        aviaRepository.bayOneTicket(title);
     }
 
     @Transactional(
-            propagation = Propagation.REQUIRED,   //+
-            isolation = Isolation.READ_COMMITTED, //+
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.READ_COMMITTED,
             timeout = 5,
-            rollbackFor = { //правило отката
+            rollbackFor = {
                     EOFException.class,
             },
             noRollbackFor = {
@@ -83,16 +70,12 @@ public class AviaServiceImpl implements AviaService {
             }
     )
     @Override
-    public void saleTicket(String title) throws IOException{
-        List<AviaEntities> title1 = aviaRepository.getByTitle(title);
-        if (title1.isEmpty()) {
-            aviaRepository.bayOneTicket(title);
-            throw new EOFException("Ошибка транзакции, повторите попытку или обратитесь с службу поддержки +9(999)99-999");
-        } else {
-            log.info("Начало транзакции");
-            aviaRepository.saleOneTicket(title);
-            System.out.println(aviaRepository.getByTitle(title));
-            log.info("Конец транзакции");
-        }
+    public void saleTicket(String title) {
+        aviaRepository.saleOneTicket(title);
+    }
+
+    @Override
+    public void changeTitle(String title, long id){
+        aviaRepository.getAviaWhichToBay(title, id);
     }
 }

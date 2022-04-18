@@ -22,6 +22,7 @@ public interface AviaRepository extends JpaRepository<AviaEntities, Long> {
      Integer saleOneTicket(String patternTitle);
 
      @Transactional
-     @Query("from AviaEntities avia where avia.title = :pattern")
-     List<AviaEntities> getByTitle(String pattern);
+     @Modifying
+     @Query("UPDATE AviaEntities avia SET avia.title = :pattern where avia.id = :patternId")
+     Integer getAviaWhichToBay(String pattern, long patternId);
 }

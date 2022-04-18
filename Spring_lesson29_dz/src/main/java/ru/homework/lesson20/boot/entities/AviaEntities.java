@@ -30,6 +30,8 @@ public class AviaEntities {
     @Column (name="place")
     private int place;
 
+
+
     @Override
     public String toString() {
         return String.format(

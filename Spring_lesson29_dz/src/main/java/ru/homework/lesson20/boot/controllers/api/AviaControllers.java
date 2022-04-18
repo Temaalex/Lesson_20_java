@@ -2,10 +2,12 @@ package ru.homework.lesson20.boot.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.homework.lesson20.boot.dto.AviaDto;
+import ru.homework.lesson20.boot.entities.AviaEntities;
 import ru.homework.lesson20.boot.service.interfaces.AviaService;
 import ru.homework.lesson20.boot.service.interfaces.Mapper;
 
@@ -46,6 +48,18 @@ public class AviaControllers {
     @PutMapping("/{id}")
     public void updateAvia(@RequestBody AviaDto aviaDto, @PathVariable("id") Long id){
         aviaService.updateAvia(mapper.toDomain(aviaDto));
+    }
+    @PostMapping("/{title}")
+    public void saleTicket(@PathVariable("title") String title) {
+        aviaService.saleTicket(title);
+    }
+    @PostMapping("/sale/{title}")
+    public void bayTicket(@PathVariable("title") String title) {
+        aviaService.bayTicket(title);
+    }
+    @PostMapping("/updateTitle/{title}/{id}")
+    public void changeTitle(@PathVariable("title") String title, @PathVariable Long id){
+        aviaService.changeTitle(title, id);
     }
 
 }

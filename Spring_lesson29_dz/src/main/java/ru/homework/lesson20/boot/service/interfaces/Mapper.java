@@ -11,4 +11,5 @@ public interface Mapper {
     Avia toDomain(AviaDto aviaDto);
     Avia toDomain(AviaEntities aviaEntities);
     AviaEntities toEntity(Avia avia);
+
 }
