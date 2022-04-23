@@ -1,4 +1,4 @@
-//package ru.homework.lesson20.boot.Security;
+//package ru.homework.lesson20.boot.Security.Service;
 //
 //
 //
@@ -21,6 +21,7 @@
 //
 //@Service
 //public class JwtService {
+//
 //    private JWTVerifier verifier;
 //
 //    public JwtService(@Value("${my-config.secret:123}") String secret) {

@@ -24,20 +24,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception{
         http
+                .csrf().disable()
                 .authorizeRequests()
-                //.antMatchers("/api/v1/avia/id").hasAnyRole("GUEST","USER","ADMIN") //посмотреть один билет
 
-                .antMatchers("/api/v1/avia/bay/title").hasRole("USER")   //купить билет
-                .antMatchers("/api/v1/avia/sale/title").hasRole("USER")  //вернуть билет
+                .antMatchers("/api/v1/avia/bay/title", "/api/v1/avia/sale/title").hasRole("USER")   //купить и вернуть билет
 
-                .antMatchers("/api/v1/avia/add").hasRole("ADMIN")  //добавить концерт
-                .antMatchers("/api/v1/avia/update/id").hasRole("ADMIN")  //обновить концерт
-                .antMatchers("/api/v1/avia/updateTitle/title/id").hasRole("ADMIN")  //изменить наименование концерта
-                .antMatchers("/api/v1/avia/delete/id").hasRole("ADMIN")  //удалить концерт
+                .antMatchers("/api/v1/avia/add",//добавить концерт
+                            "/api/v1/avia/update/id",//обновить концерт
+                            "/api/v1/avia/updateTitle/title/id",//изменить наименование концерта
+                            "/api/v1/avia/delete/id" ).hasRole("ADMIN")  //удалить концерт
 
                 .anyRequest().authenticated()
                 .and()
-                .formLogin();
+
+                .httpBasic();
 
 
 //                .and()

@@ -7,7 +7,7 @@ spring:
 
 jpa:
   show-sql: true
-
-  my-config:
-    secret: acIw5hK2aFaS62NE
+#
+#  my-config:
+#    secret: acIw5hK2aFaS62NE
 
